@@ -9,10 +9,12 @@ const getGoals = (req,res) =>{
 // @route POST /api/goals
 // @access Private
 const setGoals = (req,res) =>{
-    // in video 23:47 - !req.body.text
-    console.log(req.body)
-    if (!req.body.text()) {
-        res.status(400).json({message:'pls add a text field'})
+    // in video 23:47 - !req.body.text 
+    // but since req.body.text mean they have key that is text
+    // use alternative from https://stackoverflow.com/questions/42921727/how-to-check-req-body-empty-or-not-in-node-express
+    // if (!req.body.text) {
+    if (!Object.keys(req.body).length) {
+        // res.status(400).json({message:'pls add a text field'})
         res.status(400)
         throw new Error('Please add a text field')
     }
